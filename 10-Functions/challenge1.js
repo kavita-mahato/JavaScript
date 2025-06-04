@@ -28,7 +28,7 @@ BONUS: Use the 'displayResults' method to display the 2 arrays in the test data.
 BONUS TEST DATA 1: [5, 2, 3]
 BONUS TEST DATA 2: [1, 5, 3, 9, 6, 1]
 
-GOOD LUCK 😀
+GOOD LUCK 😊
 */
 
 const poll = {

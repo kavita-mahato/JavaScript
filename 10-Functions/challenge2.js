@@ -7,7 +7,7 @@ to blue, each time the BODY element is clicked. Do NOT select the h1 element aga
 And now explain to YOURSELF (or someone around you) WHY this worked! Take all the time you need. Think about WHEN exactly the callback 
 function is executed, and what that means for the variables involved in this example.
 
-GOOD LUCK 😀
+GOOD LUCK 😊
 */
 
 
