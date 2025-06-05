@@ -42,5 +42,43 @@ const dogs = [
   { weight: 32, curFood: 340, owners: ['Michael'] },
 ];
 
+// 1
 dogs.forEach(dog => (dog.recFood = Math.floor(dog.weight ** 0.75 * 28)));
 console.log(dogs);
+
+const dogSarah = dogs.find(dog => dog.owners.includes('Sarah'));
+console.log(
+  `Sarah's dog eating too ${
+    dogSarah.curFood > dogSarah.recFood ? 'much' : 'little'
+  }`
+);
+
+// 2
+const ownersTooMuch = dogs
+  .filter(dog => dog.curFood > dog.recFood)
+  .flatMap(dog => dog.owners);
+const ownersTooLittle = dogs
+  .filter(dog => dog.curFood < dog.recFood)
+  .flatMap(dog => dog.owners);
+
+// 3
+console.log(ownersTooMuch);
+console.log(ownersTooLittle);
+
+// 4
+console.log(`${ownersTooMuch.join(' and ')}'s dogs are eating too much`);
+console.log(`${ownersTooLittle.join(' and ')}'s dogs are eating too little`);
+
+// 5
+console.log(dogs.some(dog => dog.curFood === dog.recFood));
+
+// 6.
+const checkEatingOkay = dog =>
+  dog.curFood < dog.recFood * 1.1 && dog.curFood > dog.recFood * 0.9;
+
+console.log(dogs.every(checkEatingOkay));
+
+console.log(dogs.filter(checkEatingOkay));
+
+const dogsSorted = dogs.toSorted((a, b) => a.recFood - b.recFood);
+console.log(dogsSorted);

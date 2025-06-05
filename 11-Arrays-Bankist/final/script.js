@@ -969,7 +969,7 @@ const checkEatingOkay = dog =>
 console.log(dogs.every(checkEatingOkay));
 
 // 7.
-const dogsEatingOkay = dogs.filter(checkEatingOkay);
+ dogsEaconsttingOkay = dogs.filter(checkEatingOkay);
 console.log(dogsEatingOkay);
 
 // 8.
@@ -995,3 +995,4 @@ console.log(dogsGroupedByOwners);
 const dogsSorted = dogs.toSorted((a, b) => a.recFood - b.recFood);
 console.log(dogsSorted);
 */
+
