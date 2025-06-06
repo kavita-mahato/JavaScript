@@ -81,6 +81,24 @@ const inputClosePin = document.querySelector(".form__input--pin");
 /////////////////////////////////////////////////
 // Functions
 
+const formatMovementDate = function (date, locale) {
+  const calcDaysPassed = (date1, date2) =>
+    Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
+
+  const daysPassed = calcDaysPassed(new Date(), date);
+  console.log(daysPassed);
+
+  if (daysPassed === 0) return "Today";
+  if (daysPassed === 1) return "Yesterday";
+  if (daysPassed <= 7) return `${daysPassed} days ago`;
+  
+    const day = `${date.getDate()}`.padStart(2, 0);
+    const month = `${date.getMonth() + 1}`.padStart(2, 0);
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  
+};
+
 const displayMovements = function (acc, sort = true) {
   containerMovements.innerHTML = "";
 
@@ -97,12 +115,14 @@ const displayMovements = function (acc, sort = true) {
     const year = date.getFullYear();
     const hour = date.getHours();
     const min = date.getMinutes();
-    labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min}`;
-    const displayDate = labelDate.textContent ;
+    labelDate.textContent = `${day}/${month}/${year}`;
+    const displayDate = labelDate.textContent;
 
     const html = `
       <div class="movements__row">
-        <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
+        <div class="movements__type movements__type--${type}">${
+      i + 1
+    } ${type}</div>
         <div class="movements__date">${displayDate}</div>
         <div class="movements__value">${mov}€</div>
       </div>
@@ -188,7 +208,7 @@ btnLogin.addEventListener("click", function (e) {
     }`;
     containerApp.style.opacity = 100;
 
-    const now = new (Date);
+    const now = new Date();
     const day = `${now.getDate()}`.padStart(2, 0);
     const month = `${now.Month() + 1}`.padStart(2, 0);
     const year = now.getFullYear();
@@ -223,7 +243,7 @@ btnTransfer.addEventListener("click", function (e) {
     currentAccount.movements.push(-amount);
     receiverAcc.movements.push(amount);
 
-    // Add Transfer date 
+    // Add Transfer date
     currentAccount.movementsDates.push(new Date().toISOString());
     receiverAcc.movementsDates.push(new Date().toISOString());
 
@@ -469,3 +489,13 @@ console.log(Date.now());
 future.setFullYear(2040);
 console.log(future);
 */
+
+// Operations With Dates
+const future = new Date(2037, 10, 19, 15, 23);
+console.log(+future);
+
+const calcDaysPassed = (date1, date2) =>
+  Math.abs(date2 - date1) / (1000 * 60 * 60 * 24);
+
+const days1 = calcDaysPassed(new Date(2037, 3, 4), new Date(2037, 3, 14));
+console.log(days1);
