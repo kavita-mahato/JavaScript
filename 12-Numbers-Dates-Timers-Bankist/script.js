@@ -120,13 +120,19 @@ const displayMovements = function (acc, sort = true) {
     labelDate.textContent = `${day}/${month}/${year}`;
     const displayDate = labelDate.textContent;
 
+    const formattedMov = formatCur(mov, acc.locale, acc.currency);
+    new Intl.NumberFormat(acc.locale,{
+      style : 'currency',
+      currency : acc.currency,
+    }).format(mov);
+
     const html = `
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
         <div class="movements__date">${displayDate}</div>
-        <div class="movements__value">${mov}€</div>
+        <div class="movements__value">${formattedMov}</div>
       </div>
     `;
 
@@ -134,21 +140,29 @@ const displayMovements = function (acc, sort = true) {
   });
 };
 
+const formatCur = function(value,locale, currency){
+  return new Intl.NumberFormat(locale,{
+      style : 'currency',
+      currency : currency,
+    }).format(value);
+}
+
 const calcDisplayBalance = function (acc) {
   acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${acc.balance}€`;
+  
+  labelBalance.textContent = formatCur(acc.balance, acc.locale, acc.currency);
 };
 
 const calcDisplaySummary = function (acc) {
   const incomes = acc.movements
     .filter((mov) => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumIn.textContent = `${incomes}€`;
+  labelSumIn.textContent = formatCur(acc.balance, acc.locale, acc.currency);
 
   const out = acc.movements
     .filter((mov) => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumOut.textContent = `${Math.abs(out)}€`;
+  labelSumOut.textContent = formatCur(Math.abs(out), acc.locale, acc.currency);
 
   const interest = acc.movements
     .filter((mov) => mov > 0)
@@ -158,7 +172,7 @@ const calcDisplaySummary = function (acc) {
       return int >= 1;
     })
     .reduce((acc, int) => acc + int, 0);
-  labelSumInterest.textContent = `${interest}€`;
+  labelSumInterest.textContent = formatCur(interest, acc.locale, acc.currency);
 };
 
 const createUsernames = function (accs) {
@@ -499,7 +513,7 @@ console.log(Date.now());
 future.setFullYear(2040);
 console.log(future);
 */
-
+/*
 // Operations With Dates
 const future = new Date(2037, 10, 19, 15, 23);
 console.log(+future);
@@ -509,3 +523,23 @@ const calcDaysPassed = (date1, date2) =>
 
 const days1 = calcDaysPassed(new Date(2037, 3, 4), new Date(2037, 3, 14));
 console.log(days1);
+*/
+
+// Internationalizing Numbers (Intl)
+const num = 3884764.23;
+
+const option = {
+  style: 'currency',
+  unit: 'celsius',
+  currency: 'EUR',
+  // useGrouping: false,
+};
+
+
+console.log('US:      ', new Intl.NumberFormat('en-US', option).format(num));
+console.log('Germany: ', new Intl.NumberFormat('de-DE', option).format(num));
+console.log('Syria:   ', new Intl.NumberFormat('ar-SY', option).format(num));
+console.log(
+  navigator.language,
+  new Intl.NumberFormat(navigator.language, option).format(num)
+);
