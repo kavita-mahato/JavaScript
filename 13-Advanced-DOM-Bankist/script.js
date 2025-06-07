@@ -513,7 +513,7 @@ console.log(h1.parentElement.children);
 //   if (el !== h1) el.style.transform = 'scale(0.5)';
 // });
 */
-
+/*
 document.addEventListener('DOMContentLoaded',function(e){
   console.log('HTML parsed and DOM tree built!',e);
 });
@@ -527,3 +527,4 @@ window.addEventListener('load',function(e){
 //   console.log(e);
 //   e.returnValue = '';
 // })
+*/
