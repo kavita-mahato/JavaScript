@@ -172,15 +172,39 @@ const headerObserver = new IntersectionObserver(stickyNav, {
 
 headerObserver.observe(header);
 // --------------------------------------------------------------
-// Sticky navigation
-const initialCoords = section1.getBoundingClientRect();
-console.log(initialCoords);
+// // Sticky navigation
+// const initialCoords = section1.getBoundingClientRect();
+// console.log(initialCoords);
 
-window.addEventListener('scroll',function(){
-  console.log(window.scrollY);
-  if(window.scrollY > initialCoords.top) nav.classList.add('sticky');
+// window.addEventListener('scroll',function(){
+//   console.log(window.scrollY);
+//   if(window.scrollY > initialCoords.top) nav.classList.add('sticky');
+// });
+
+// --------------------------------------------------------------
+
+// Reveal sections
+const allSections = document.querySelectorAll('.section');
+
+const revealSection = function (entries, observer) {
+  const [entry] = entries;
+  
+  if (!entry.isIntersecting) return;
+  console.log(entry);
+
+entry.target.classList.remove('section--hidden');
+  observer.unobserve(entry.target);
+};
+
+const sectionObserver = new IntersectionObserver(revealSection, {
+  root: null,
+  threshold: 0.15,
 });
 
+allSections.forEach(function (section) {
+  sectionObserver.observe(section);
+  section.classList.add('section--hidden');
+});
 
 // --------------------------------------------------------------
 
