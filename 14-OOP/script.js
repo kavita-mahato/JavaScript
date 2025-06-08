@@ -43,7 +43,7 @@ Person.prototype.species = 'Homo Sapiens';
 console.log(kavita.species, matilda.species);
 console.log(kavita.hasOwnProperty('species'));
 
-
+// PROTOTYPAL INHERITANCE 
 console.log(kavita.__proto__);
 // Object.prototype (top of the prototype chain)
 console.log(kavita.__proto__.__proto__);
