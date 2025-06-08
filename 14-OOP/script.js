@@ -24,6 +24,12 @@ const matilda = new Person('Matilda',2020);
 console.log(matilda);
 console.log(kavita instanceof Person);
 
+Person.hey = function () {
+  console.log('Hey there 👋');
+  console.log(this);
+};
+Person.hey();
+
 // PROTOTYPES
 console.log(Person.prototype);
 Person.prototype.calcAge = function (){
@@ -68,7 +74,7 @@ console.dir(x => x+1);
 */
 
 // ------------------------------------------------------------------
-
+/*
 // ES6 Classes
 
 // Class expression
@@ -106,6 +112,13 @@ class PersonCl {
   get fullName() {
     return this._fullName;
   }
+
+  // Static method
+  static hey() {
+    console.log('Hey there 👋');
+    console.log(this);
+  }
+
 }
 
 const kavita = new PersonCl('Kavita Mahato', 2005);
@@ -124,7 +137,8 @@ kavita.greet();
 // 2. Classes are first-class citizens
 // 3. Classes are executed in strict mode
 
-const antara = new PersonCl('Antara', 2000);
+// const antara = new PersonCl('Antara', 2000);
+PersonCl.hey();
 
 // -------------------------------------------------------------------
 // Setters and Getters
@@ -145,3 +159,27 @@ console.log(account.latest);
 
 account.latest = 500;
 console.log(account.movements);
+*/
+// -------------------------------------------------------------------
+// Object.create
+const PersonProto = {
+  calcAge() {
+    console.log(2025 - this.birthYear);
+  },
+
+  init(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  },
+};
+const steven = Object.create(PersonProto);
+console.log(steven);
+steven.name = 'Steven';
+steven.birthYear = 2000;
+steven.calcAge();
+
+console.log(steven.__proto__ === PersonProto);
+
+const sarah = Object.create(PersonProto);
+sarah.init('Sarah', 1991);
+sarah.calcAge();
