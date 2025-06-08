@@ -161,6 +161,7 @@ account.latest = 500;
 console.log(account.movements);
 */
 // -------------------------------------------------------------------
+/*
 // Object.create
 const PersonProto = {
   calcAge() {
@@ -183,3 +184,48 @@ console.log(steven.__proto__ === PersonProto);
 const sarah = Object.create(PersonProto);
 sarah.init('Sarah', 1991);
 sarah.calcAge();
+*/
+// -------------------------------------------------------------------
+// Inheritance Between "Classes": Constructor Functions
+
+const Person = function (firstName, birthYear) {
+  this.firstName = firstName;
+  this.birthYear = birthYear;
+};
+
+Person.prototype.calcAge = function () {
+  console.log(2037 - this.birthYear);
+};
+
+const Student = function (firstName, birthYear, course) {
+    Person.call(this, firstName, birthYear);
+//   this.firstName =firstName;
+//   this.birthYear = birthYear;
+  this.course = course;
+};
+
+Student.prototype = Object.create(Person.prototype);
+
+// Student.prototype = Person.prototype;
+// ^ Wrong because in this way we will not end up in the prototypevchain tha twe need
+
+Student.prototype.introduce = function(){
+    console.log(`My name is ${this.firstName} and I study ${this.course}`);
+}
+const mike = new Student('Mike', 2020, 'Computer Science');
+console.log(mike);
+mike.introduce();
+mike.calcAge();
+
+console.log(mike.__proto__);
+console.log(mike.__proto__.__proto__);
+
+console.log(mike instanceof Student);
+console.log(mike instanceof Person);
+console.log(mike instanceof Object);
+
+console.dir(Student.prototype.constructor);
+// we set the prototype property of student using object.create
+Student.prototype.constructor = Student;
+// ^ this is done to rely on coonstructor property of student
+console.dir(Student.prototype.constructor);
