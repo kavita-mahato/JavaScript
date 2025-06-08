@@ -162,7 +162,7 @@ console.log(account.movements);
 */
 // -------------------------------------------------------------------
 /*
-// Object.create
+// Object.create (3rd way of implementing prototypal inheritance or delegance)
 const PersonProto = {
   calcAge() {
     console.log(2025 - this.birthYear);
