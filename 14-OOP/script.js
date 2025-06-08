@@ -332,35 +332,32 @@ jay.introduce();
 jay.calcAge();
 */
 // -------------------------------------------------------------------
-
+/*
 class Account {
   constructor(owner, currency, pin) {
     this.owner = owner;
     this.currency = currency;
-    this._pin = pin;
-    this._movements = [];
+    this.pin = pin;
+    this.movements = [];
     this.locale = navigator.language;
 
     console.log(`Thanks for opening an account, ${owner}`);
   }
 
 //   public interface
-  getMovements(){
-    return this._movements;
-  }
   deposit(val){
-    this._movements.push(val);
+    this.movements.push(val);
   }
   withdraw(val){
     this.deposit(-val);
   }
 
-  _approveLoan(val) {
+  approveLoan(val) {
     return true;
   }
 
   requestLoan(val) {
-    if (this._approveLoan(val)) {
+    if (this.approveLoan(val)) {
       this.deposit(val);
       console.log(`Loan approved`);
     }
@@ -375,11 +372,10 @@ acc1.deposit(250);
 acc1.withdraw(150);
 acc1.approveLoan(1000);
 acc1.requestLoan(2000);
-console.log(acc1.getMovements);
 
 console.log(acc1);
 console.log(acc1.pin);
-
+*/
 // -------------------------------------------------------------------
 // Encapsulation: Private Class Fields and Methods
 
@@ -387,3 +383,71 @@ console.log(acc1.pin);
 // 2) Private fields
 // 3) Public methods
 // 4) Private methods
+// STATIC version of these 4
+
+class Account {
+    // Public fields
+  locale = navigator.language;
+  bank = 'Bankist';
+
+    // Private fields
+  #movements = [];
+  #pin;
+
+  constructor(owner, currency, pin) {
+    this.owner = owner;
+    this.currency = currency;
+    this.#pin = pin;
+
+    // this.movements = [];
+    // this.locale = navigator.language;
+
+    console.log(`Thanks for opening an account, ${owner}`);
+  }
+    // Public methods
+  // Public interface (API)
+  getMovements() {
+    return this.#movements;
+    // Not chaninable
+  }
+
+  deposit(val) {
+    this.#movements.push(val);
+    
+  }
+
+  withdraw(val) {
+    this.deposit(-val);
+    
+  }
+  //Private methods
+//   #approveLoan(val) {
+  _approveLoan(val) {
+    // Fake method
+    
+  }
+
+  requestLoan(val) {
+    if (this._approveLoan(val)) {
+      this.deposit(val);
+      console.log(`Loan approved`);
+    }
+    
+  }
+}
+
+const acc1 = new Account('Jonas', 'EUR', 1111);
+
+// acc1.movements.push(250);
+// acc1.movements.push(-140);
+// acc1.approveLoan(1000);
+
+acc1.deposit(250);
+acc1.withdraw(140);
+acc1.requestLoan(1000);
+console.log(acc1.getMovements());
+console.log(acc1);
+
+// console.log(acc1.#movements);
+// console.log(acc1.#pin);
+// console.log(acc1.#approveLoan(100));
