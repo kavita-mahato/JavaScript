@@ -186,25 +186,26 @@ sarah.init('Sarah', 1991);
 sarah.calcAge();
 */
 // -------------------------------------------------------------------
+/*
 // Inheritance Between "Classes": Constructor Functions
 
 const Person = function (firstName, birthYear) {
-  this.firstName = firstName;
+    this.firstName = firstName;
   this.birthYear = birthYear;
 };
 
 Person.prototype.calcAge = function () {
   console.log(2037 - this.birthYear);
-};
-
+  };
+  
 const Student = function (firstName, birthYear, course) {
     Person.call(this, firstName, birthYear);
-//   this.firstName =firstName;
+    //   this.firstName =firstName;
 //   this.birthYear = birthYear;
   this.course = course;
-};
+  };
 
-Student.prototype = Object.create(Person.prototype);
+  Student.prototype = Object.create(Person.prototype);
 
 // Student.prototype = Person.prototype;
 // ^ Wrong because in this way we will not end up in the prototypevchain tha twe need
@@ -229,3 +230,71 @@ console.dir(Student.prototype.constructor);
 Student.prototype.constructor = Student;
 // ^ this is done to rely on coonstructor property of student
 console.dir(Student.prototype.constructor);
+*/
+// -------------------------------------------------------------------
+
+// Inheritance Between "Classes": ES6 Classes
+
+class PersonCl {
+  constructor(fullName, birthYear) {
+    this.fullName = fullName;
+    this.birthYear = birthYear;
+  }
+
+  // Instance methods
+  calcAge() {
+    console.log(2025 - this.birthYear);
+  }
+
+  greet() {
+    console.log(`Hey ${this.fullName}`);
+  }
+
+  get age() {
+    return 2025 - this.birthYear;
+  }
+
+  set fullName(name) {
+    if (name.includes(' ')) this._fullName = name;
+    else alert(`${name} is not a full name!`);
+  }
+
+  get fullName() {
+    return this._fullName;
+  }
+
+  // Static method
+  static hey() {
+    console.log('Hey there 👋');
+  }
+}
+
+// extend keyword used to link to prototypes
+class StudentCl extends PersonCl {
+  constructor(fullName, birthYear, course) {
+      // super is contructor function of parent class
+      // Always needs to happen first!
+    super(fullName, birthYear);
+    this.course = course;
+  }
+
+  introduce() {
+    console.log(`My name is ${this.fullName} and I study ${this.course}`);
+  }
+
+//   Overwrite (child overwrites parent method)
+  calcAge() {
+    console.log(
+      `I'm ${
+        2025 - this.birthYear
+      } years old, but as a student I feel more like ${
+        2025 - this.birthYear + 10
+      }`
+    );
+  }
+
+}
+
+const martha = new StudentCl('Martha Jones', 2012, 'Computer Science');
+martha.introduce();
+martha.calcAge();
