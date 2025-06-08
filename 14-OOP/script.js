@@ -1,5 +1,6 @@
 'use strict';
 
+/*
 // Constructor Functions and the new Operator
 const Person = function (firstName, birthYear){
     this.firstName = firstName;
@@ -64,3 +65,45 @@ console.log(arr.unique());
 
 const h1 = document.querySelector('h1');
 console.dir(x => x+1);
+*/
+
+// ------------------------------------------------------------------
+
+// ES6 Classes
+
+// Class expression
+// const PersonCl = class {}
+
+// Class declaration
+class PersonCl {
+    // constructor method
+  constructor(fullName, birthYear) {
+    this.fullName = fullName;
+    this.birthYear = birthYear;
+  }
+
+  // Instance methods
+  // Methods will be added to .prototype property
+  calcAge = function(){
+    console.log(2025 - 2005);
+  }
+
+  greet() {
+    console.log(`Hey ${this.fullName}`);
+  }
+}
+
+const kavita = new PersonCl('Kavita Mahato', 2005);
+console.log(kavita);
+kavita.calcAge();
+console.log(kavita.__proto__ === PersonCl.prototype);
+
+// PersonCl.prototype.greet = function () {
+//   console.log(`Hey ${this.firstName}`);
+// };
+
+kavita.greet();
+
+// 1. Classes are NOT hoisted
+// 2. Classes are first-class citizens
+// 3. Classes are executed in strict mode
