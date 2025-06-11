@@ -386,12 +386,14 @@ const getPosition = function () {
 // https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json
 
 const whereAmI = async function () {
+  try {
     // Geolocation
     const pos = await getPosition();
     const { latitude: lat, longitude: lng } = pos.coords;
 
     // Reverse geocoding
     const resGeo = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`);
+    if (!resGeo.ok) throw new Error('Problem getting location data');
 
     const dataGeo = await resGeo.json();
     console.log(dataGeo);
@@ -400,10 +402,30 @@ const whereAmI = async function () {
     const res = await fetch(
       `https://restcountries.com/v3.1/name/${dataGeo.country}`
     );
+    
+    // BUG in video:
+    if (!resGeo.ok) throw new Error('Problem getting country');
+    
+    // FIX:
+    if (!res.ok) throw new Error('Problem getting country');
 
     const data = await res.json();
     console.log(data);
     renderCountry(data[0]);
+  } catch (err) {
+    console.error(`${err} 💥`);
+    renderError(`💥 ${err.message}`);
+  }
 };
 whereAmI();
+whereAmI();
+whereAmI();
 console.log('FIRST');
+
+// try {
+//   let y = 1;
+//   const x = 2;
+//   y = 3;
+// } catch (err) {
+//   alert(err.message);
+// }
