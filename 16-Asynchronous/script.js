@@ -224,6 +224,7 @@ console.log('Test end');
 */
 // ______________________________________________________________________
 // Building a Simple Promise
+/*
 const lotteryPromise = new Promise(function (resolve, reject) {
   console.log('Lotter draw is happening 🔮');
   setTimeout(function () {
@@ -274,3 +275,48 @@ wait(1)
 
 Promise.resolve('abc').then(x => console.log(x));
 Promise.reject(new Error('Problem!')).catch(x => console.error(x));
+*/
+
+// _______________________________________________________________
+// Promisifying the Geolocation API
+
+const getPosition = function () {
+  return new Promise(function (resolve, reject) {
+    // navigator.geolocation.getCurrentPosition(
+    //   position => resolve(position),
+    //   err => reject(err)
+    // );
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+};
+getPosition().then(pos => console.log(pos));
+
+const whereAmI = function () {
+  getPosition()
+    .then(pos => {
+      const { latitude: lat, longitude: lng } = pos.coords;
+      return fetch(
+    `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`)
+    })
+  
+    .then((res) => {
+      // console.log(res);
+      if (!res.ok) throw new Error(`Problem with geocoding ${res.status}`);
+      return res.json();
+    })
+    .then((data) => {
+      console.log(data);
+      console.log(`You are in ${data.address.city}, ${data.address.country}`);
+      return(`https://restcountries.com/v3.1/name/${data.address.country}`);
+    })
+    .then((res) => {
+      if (!res.ok)
+        throw new Error(`Country not found (${res.status})`);
+
+      return res.json();
+    })
+    .then((data) => renderCountry(data))
+    .catch(err => console.error(`${err.message} 💥`));
+};
+
+btn.addEventListener('click', whereAmI);
