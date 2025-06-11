@@ -72,16 +72,16 @@ const renderCountry = function (data, className = "") {
 };
 
 const renderError = function (msg) {
-  countriesContainer.insertAdjacentText('beforeend', msg);
-//   countriesContainer.style.opacity = 1;
+  countriesContainer.insertAdjacentText("beforeend", msg);
+    countriesContainer.style.opacity = 1;
 };
 
-const getJSON = function(url, errorMsg = 'Something went wrong'){
-    return fetch(url).then(response => {
-        if (!response.ok) throw new Error(`${errorMsg} (${response.status})`);
-        return response.json();
-    })
-}
+const getJSON = function (url, errorMsg = "Something went wrong") {
+  return fetch(url).then((res) => {
+    if (!res.ok) throw new Error(`${errorMsg} (${res.status})`);
+    return res.json();
+  });
+};
 
 /*
 const getCountryAndNeighbour = function (country) {
@@ -144,7 +144,7 @@ setTimeout(() => {
 // console.log(request);
 
 // Consuming Promises
-
+/*
 const getCountryData = function (country) {
   // Country 1
   getJSON(
@@ -179,3 +179,33 @@ const getCountryData = function (country) {
 // });
 
 getCountryData('australia');
+*/
+
+// _____________________________Challenge #1 ________________________
+const whereAmI = function (lat, lng) {
+  fetch(
+    `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`
+  )
+    .then((res) => {
+      // console.log(res);
+      if (!res.ok) throw new Error(`Problem with geocoding ${res.status}`);
+      return res.json();
+    })
+    .then((data) => {
+      console.log(data);
+      console.log(`You are in ${data.address.city}, ${data.address.country}`);
+      return(`https://restcountries.com/v3.1/name/${data.address.country}`);
+    })
+    .then((res) => {
+      if (!res.ok)
+        throw new Error(`Country not found (${res.status})`);
+
+      return res.json();
+    })
+    .then((data) => renderCountry(data))
+    .catch(err => console.error(`${err.message} 💥`));
+};
+
+whereAmI(52.508, 13.381);
+// whereAmI(19.037, 72.873);
+// whereAmI(-33.933, 18.474);
