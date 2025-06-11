@@ -324,7 +324,7 @@ btn.addEventListener('click', whereAmI);
 
 // ________________________________________________________________
 // Coding Challenge 2
-
+/*
 const wait = function (seconds) {
   return new Promise(function (resolve) {
     setTimeout(resolve, seconds * 1000);
@@ -370,3 +370,40 @@ createImage('img/img-1.jpg')
     currentImg.style.display = 'none';
   })
   .catch(err => console.error(err));
+*/
+
+// ________________________________________________________________
+// Consuming Promises with Async/Await
+// Error Handling With try...catch
+
+const getPosition = function () {
+  return new Promise(function (resolve, reject) {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+};
+
+// https://restcountries.com/v3.1/name/${country}
+// https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json
+
+const whereAmI = async function () {
+    // Geolocation
+    const pos = await getPosition();
+    const { latitude: lat, longitude: lng } = pos.coords;
+
+    // Reverse geocoding
+    const resGeo = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`);
+
+    const dataGeo = await resGeo.json();
+    console.log(dataGeo);
+
+    // Country data
+    const res = await fetch(
+      `https://restcountries.com/v3.1/name/${dataGeo.country}`
+    );
+
+    const data = await res.json();
+    console.log(data);
+    renderCountry(data[0]);
+};
+whereAmI();
+console.log('FIRST');
