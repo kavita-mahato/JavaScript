@@ -130,3 +130,10 @@ setTimeout(() => {
 const request = fetch('https://restcountries.com/v3.1/name/india');
 console.log(request);
 
+// Consuming Promises
+const getCountryData = function (country) {
+  fetch(`https://restcountries.com/v3.1/name/${country}`)
+    .then(response => response.json())
+    .then(data => renderCountry(data[0]));
+};
+getCountryData('india');
