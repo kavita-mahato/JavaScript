@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Object</title>
-</head>
-<body>
+  </head>
+  <body>
     <script>
+      /*
         const product = {
             name: 'socks',
             price: 1090
@@ -43,6 +44,46 @@
         console.log(JSON.stringify(product2));
         const jsonString = JSON.stringify(product2)
         console.log(JSON.parse(jsonString)); 
+        */
+
+      console.log("hello".length);
+    //   console.log("hello", toUpperCase());
+
+      const object1 = {
+        message: "hello",
+      };
+      const object3 = {
+        message: "Good Job!",
+      };
+      const object2 = object1;
+      object1.message = "Good Job!";
+      console.log(object1);
+      console.log(object2);
+      console.log(object1 === object2); //true because same reference
+      console.log(object1 === object3);
+      const object4 = {
+        message: "Good Job!",
+        price:799,
+      };
+    //   const message = object4.message;
+      const {message, price} = object4;
+      console.log(message);
+      console.log(price);
+
+      const object5 = {
+        // message: message,
+        message,
+        // method: function function1(){
+        //     console.log('Method');
+        // }
+
+        //shorthand method
+        method(){
+            console.log('method');
+        }
+      }
+      console.log(object5);
+      object5.method();
     </script>
-</body>
+  </body>
 </html>
