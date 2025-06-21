@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM Projects</title>
+    <style>
+      .sub{
+        border: none;
+        background-color: black;
+        color: white;
+        padding: 10px;
+        border-radius: 50px;
+        font-weight: bold;
+        cursor: pointer;
+        margin-bottom: 30px;
+      }
+      .is-sub{
+        background-color: rgb(240, 240, 240);
+        color: black;
+      }
+      .cost{
+        font-size: 15px;
+        padding: 10px;
+      }
+      body{
+        font-family: arial;
+      }
+      .calculate{
+        background-color: green;
+        color: white;
+        border: none;
+        font-size: 15px;
+        padding: 12px 15px; 
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <p>SUBSCRIBE</p>
+    <button
+      onclick="subscribe()";
+      class="js-subscribe sub"
+    >
+      Subscribe
+    </button>
+
+    <p>Amazon Shipping Calculator</p>
+    <input placeholder="Cost of order" class="js-cost cost" onkeydown="
+    if(event.key == 'Enter'){
+      calculateTotal();
+    }">
+    <button onclick="calculateTotal();" class="calculate">Calculate</button>
+    <p class="js-total"></p>
+
+    <script>
+      function handleCost(){
+        if(event.key === 'Enter'){
+          calculateTotal();
+        }
+      }
+        function calculateTotal(){
+            const inputElement = document.querySelector('.js-cost');
+            let cost = Number(inputElement.value);
+            console.log(cost);
+            if(cost<40){
+              cost = cost + 10;
+              console.log(cost);
+            }
+
+            document.querySelector('.js-total').innerHTML = `$${cost}`;
+        }
+      function subscribe() {
+        const buttonElemnet = document.querySelector(".js-subscribe");
+        if (buttonElemnet.innerHTML === "Subscribe") {
+          buttonElemnet.innerHTML = "Subscribed";
+          buttonElemnet.classList.add('is-sub');
+        } else {
+          buttonElemnet.innerHTML = "Subscribe";
+          buttonElemnet.classList.remove('is-sub');
+        }
+      }
+    </script>
+  </body>
+</html>
