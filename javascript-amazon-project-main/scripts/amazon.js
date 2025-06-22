@@ -1,6 +1,6 @@
 "use strict";
 
-let productsHTML = '';
+let productsHTML = "";
 
 products.forEach((product) => {
   productsHTML += `<div class="product-container">
@@ -15,7 +15,7 @@ products.forEach((product) => {
 
           <div class="product-rating-container">
             <img class="product-rating-stars"
-              src=images/ratings/rating-4${product.rating.stars}.png>
+              src=images/ratings/rating-${product.rating.stars*10}.png>
             <div class="product-rating-count link-primary">
               ${product.rating.count}
             </div>
@@ -53,10 +53,12 @@ products.forEach((product) => {
         </div>`;
 });
 
-console.log(productsHTML);
+// console.log(productsHTML);
 
-document.querySelector( '.js-products-grid').innerHTML = productsHTML;
+document.querySelector(".js-products-grid").innerHTML = productsHTML;
 
-document.querySelector('.js-add-to-cart').forEach((button) => {
-  button.addEventListener('click',)
+document.querySelectorAll(".js-add-to-cart").forEach((button) => {
+  button.addEventListener("click", () => {
+    console.log("Added products");
+  });
 });
