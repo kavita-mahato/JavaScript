@@ -18,7 +18,9 @@
     <link rel="stylesheet" href="styles/shared/amazon-header.css">
     <link rel="stylesheet" href="styles/pages/amazon.css">
 
-    <script deferr src="data/products.js"></script>
+    <!-- Here are the JS files for this page. -->
+     <script defer src="data/cart.js"></script>
+    <script defer src="data/products.js"></script>
     <script defer src="scripts/amazon.js"></script>
   </head>
   <body>
@@ -48,7 +50,7 @@
 
         <a class="cart-link header-link" href="checkout.html">
           <img class="cart-icon" src="images/icons/cart-icon.png">
-          <div class="cart-quantity">3</div>
+          <div class="cart-quantity js-cart-quantity">0</div>
           <div class="cart-text">Cart</div>
         </a>
       </div>
