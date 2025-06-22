@@ -4,3 +4,4 @@ const myArr = [10, 20, 30];
 console.log(myArr);
 console.log(myArr[0]);
 console.log(myArr.length);
+console.log(myArr.slice(0, 2));

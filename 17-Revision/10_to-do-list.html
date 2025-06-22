@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/10_to-do-list.css" />
     <script defer src="scripts/10_to-do-list.js"></script>
     <title>TO DO List</title>
-</head>
-<body>
-    <h3>To do List Practice 1</h3>
-    <input placeholder="Todo name"
-    class="js-name">
-    <button onclick="
-    addTodo();">Add</button>
-    <!-- <h3>To do List Practice 2</h3>
-    <input placeholder="Todo name">
-    <button>Add</button> -->
-
-    <div class="js-todoList"></div>
-</body>
+  </head>
+  <body>
+      <h3>To do List</h3>
+    <div class="input-grid">
+      <input placeholder="Todo name" class="js-name name-input" />
+      <input type="date" class="js-due-date date-input" />
+      <button
+        onclick="addTodo();"class="add-button">
+        Add
+      </button>
+    </div>
+    <div class="js-todoList todo-grid"></div>
+  </body>
 </html>

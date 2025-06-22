@@ -1,6 +1,15 @@
 "use strict";
 
-const todoList = ["make dinner", "wash dishes"];
+const todoList = [
+  {
+    name: "Make dinner",
+    dueDate: "2025-06-20",
+  },
+  {
+    name: "Wash dishes",
+    dueDate: "2025-06-21",
+  },
+];
 
 renderTodoList();
 
@@ -8,13 +17,17 @@ function renderTodoList() {
   let todoListHTML = "";
 
   for (let i = 0; i < todoList.length; i++) {
-    const todo = todoList[i];
+    const todoObject = todoList[i];
+    const { name, dueDate } = todoObject;
 
     // Generating the HTML using JS
-    const html = `<p>${todo}</p>`;
+    const html = `<div>${name}</div>
+      <div>${dueDate}</div>
+    <button onclick="
+    todoList.splice(${i},1);
+    renderTodoList();" class="delete-button">Delete</button>`;
     todoListHTML += html;
   }
-  console.log(todoListHTML);
 
   document.querySelector(".js-todoList").innerHTML = todoListHTML;
 }
@@ -22,9 +35,14 @@ function renderTodoList() {
 function addTodo() {
   const inputElement = document.querySelector(".js-name");
   const name = inputElement.value;
-  console.log(name);
 
-  todoList.push(name);
+  const dueinputElement = document.querySelector(".js-due-date");
+  const dueDate = dueinputElement.value;
+
+  todoList.push({
+    name,
+    dueDate,
+  });
   console.log(todoList);
 
   inputElement.value = "";
