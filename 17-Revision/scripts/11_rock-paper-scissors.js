@@ -25,6 +25,22 @@ function autoPlay() {
   }
 }
 
+document.querySelectorAll(".options").forEach((button) => {
+  button.addEventListener("click", () => {
+    playGame(button.textContent); // ✊, ✋, ✌
+  });
+});
+
+document.body.addEventListener("keydown", (event) => {
+  if (event.key === "r") {
+    playGame("✊");
+  } else if (event.key === "p") {
+    playGame("✋");
+  } else if (event.key === "s") {
+    playGame("✌");
+  }
+});
+
 function playGame(playerMove) {
   const computerMove = pickComputerMove();
 
