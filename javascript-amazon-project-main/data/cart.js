@@ -1,3 +1,3 @@
 "use strict";
 
-const cart = [];
+export const cart = [];
